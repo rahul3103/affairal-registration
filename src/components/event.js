@@ -127,7 +127,6 @@ class Event extends Component {
                 </label>
             </div>
             {this.state.showValid ? <div className="form-row"><p className="warning">{this.state.errormsg}</p></div> : null}
-            
             <div className="outer">
                 <div>
                   <button className="inner" type="submit" value="Submit">Create Event</button>

@@ -38,6 +38,7 @@ class EventPreview extends Component {
   handleDateChange(date) {
     const events = this.state.event;
     events.edate = date;
+    
     this.setState({
         event: events
       });
@@ -56,7 +57,7 @@ class EventPreview extends Component {
     event.preventDefault();
     axios.post(Config.API_URL + 'event/' + this.state.event.id, {
       name: this.state.event.name,
-      edate: this.state.event.date,
+      edate: this.state.event.edate,
       location: this.state.event.location,
       etype: this.state.event.etype,
     })
