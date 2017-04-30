@@ -44,7 +44,7 @@ class Items extends Component {
             <div className="form-row">
                 <label className="upload">
                     <span>Upload ID Card</span>
-                    <input type="file" name="idcard" onChange={this.props.handleInputChange.bind(this, 'idcard')}/>
+                    <input type="file" accept="image/x-png,image/gif,image/jpeg" name="idcard" onChange={this.props.handleInputChange.bind(this, 'idcard')}/>
                 </label>
             </div>
 
