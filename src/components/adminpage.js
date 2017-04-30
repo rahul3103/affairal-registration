@@ -10,8 +10,11 @@ class AdminPage extends Component {
     super(props);
 
     this.state = {
-      users: []
+      users: [],
+      toggle: true
     };
+    this.sortBy = this.sortBy.bind(this);
+
   }
 
   componentWillMount() {
@@ -25,6 +28,20 @@ class AdminPage extends Component {
     });
   }
 
+  sortBy(e) {
+    if (this.state.toggle) {
+    this.setState({users: this.state.users.sort(function(a, b) {
+    return a[e] === b[e] ? 0 : +(a[e] < b[e]) || -1;
+    })})
+    this.setState({toggle: false})
+    }
+    else {
+      this.setState({users: this.state.users.sort(function(a, b) {
+    return a[e] === b[e] ? 0 : +(a[e] > b[e]) || -1;
+    })})
+    this.setState({toggle: true})
+    }
+  }
   
   render() {
     let ui = null;

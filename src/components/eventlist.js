@@ -10,7 +10,8 @@ class EventList extends Component {
     super(props);
 
     this.state = {
-      events: []
+      events: [],
+      toggle: true
     };
   }
 
@@ -23,6 +24,21 @@ class EventList extends Component {
     .catch(function (error) {
       console.log(error);
     });
+  }
+
+  sortBy(e) {
+    if (this.state.toggle) {
+    this.setState({events: this.state.events.sort(function(a, b) {
+    return a[e] === b[e] ? 0 : +(a[e] < b[e]) || -1;
+    })})
+    this.setState({toggle: false})
+    }
+    else {
+      this.setState({events: this.state.events.sort(function(a, b) {
+    return a[e] === b[e] ? 0 : +(a[e] > b[e]) || -1;
+    })})
+    this.setState({toggle: true})
+    }
   }
 
   
