@@ -16,7 +16,9 @@ class Event extends Component {
       name: '',
       location: Config.location[0],
       etype: Config.eve_type[0],
-      success: false
+      success: false,
+      showValid: false,
+      errormsg: 'Enter name of the event'
     };
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -38,6 +40,15 @@ class Event extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    if (this.state.name === '') {
+        this.setState({
+          showValid: true
+        });
+        setTimeout(() => { this.setState({
+        showValid: false
+        }); }, 3000);
+        return
+    }
     axios.post(Config.API_URL + 'event', {
       name: this.state.name,
       edate: this.state.date,
@@ -115,6 +126,8 @@ class Event extends Component {
                     </select>
                 </label>
             </div>
+            {this.state.showValid ? <div className="form-row"><p className="warning">{this.state.errormsg}</p></div> : null}
+            
             <div className="outer">
                 <div>
                   <button className="inner" type="submit" value="Submit">Create Event</button>

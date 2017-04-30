@@ -22,12 +22,15 @@ class Registration extends Component {
       showID: false,
       showBack: false,
       id: 0,
-      showValid: false
+      showValid: false,
+      errormsg: 'Must Fill all Fields'
     };
     this.hidePreview = this.hidePreview.bind(this);
     this.showPreview = this.showPreview.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.phonenumber = this.phonenumber.bind(this);
+    
   }
 
   handleInputChange(propertyName, event) {
@@ -51,10 +54,21 @@ class Registration extends Component {
     }
   }
 
+  phonenumber(mobile) {  
+    let phoneno = /^\d{10}$/;  
+    if(!mobile.match(phoneno)) {  
+        this.setState({ errormsg : "Please input 10 digit mobile number"
+      });  
+    }  
+  }  
+
   handleSubmit(event) {
     const self = this;
     event.preventDefault();
-    if (this.state.name === '' || this.state.email === '' || this.state.mobile === '' || this.state.idcard === '') {
+    if (this.state.name === '' || this.state.email === '' || this.state.idcard === '') {
+        console.log(this.state.mobile)
+        console.log('---')
+        this.phonenumber(this.state.mobile)
         this.setState({
           showValid: true
         });
@@ -122,7 +136,7 @@ class Registration extends Component {
                                           rtype={this.state.rtype}
                                           idcard={this.state.idcard}
                                     /> : null}
-            {this.state.showValid ? <div className="form-row"><p className="warning">Must Fill all Fields</p></div> : null}
+            {this.state.showValid ? <div className="form-row"><p className="warning">{this.state.errormsg}</p></div> : null}
             
             {this.state.showPreview ? <Preview tickets={this.state.tickets} 
                                                 name={this.state.name}
